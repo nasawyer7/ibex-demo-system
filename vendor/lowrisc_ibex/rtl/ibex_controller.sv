@@ -108,8 +108,9 @@ module ibex_controller #(
   // performance monitors
   output logic                  perf_jump_o,             // we are executing a jump
                                                          // instruction (j, jr, jal, jalr)
-  output logic                  perf_tbranch_o           // we are executing a taken branch
+  output logic                  perf_tbranch_o,          // we are executing a taken branch
                                                          // instruction
+  output logic                  perf_exc_o               // core is processing an exception
 );
   import ibex_pkg::*;
 
@@ -488,6 +489,7 @@ module ibex_controller #(
 
     perf_tbranch_o         = 1'b0;
     perf_jump_o            = 1'b0;
+    perf_exc_o             = 1'b0;
 
     controller_run_o       = 1'b0;
 
@@ -597,6 +599,7 @@ module ibex_controller #(
 
           perf_tbranch_o = branch_set_i;
           perf_jump_o    = jump_set_i;
+          perf_exc_o     = special_req & exc_req_d;
         end
 
         if (BranchPredictor) begin

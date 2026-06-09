@@ -235,7 +235,7 @@ module ibex_demo_system #(
 
   ibex_top #(
     .RegFile         ( RegFile                                 ),
-    .MHPMCounterNum  ( 10                                      ),
+    .MHPMCounterNum  ( 14                                      ),
     .RV32M           ( ibex_pkg::RV32MFast                     ),
     .RV32B           ( ibex_pkg::RV32BNone                     ),
     .DbgTriggerEn    ( DbgTriggerEn                            ),

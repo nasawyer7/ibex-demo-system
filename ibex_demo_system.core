@@ -162,7 +162,7 @@ targets:
     toplevel: top_artya7
     tools:
       vivado:
-        part: "xc7a35tcsg324-1"  # Default to Arty A7-35
+        part: "xc7a100tcsg324-1"  # Default to Arty A7-35
     parameters:
       - SRAMInitFile
       - PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx
@@ -189,7 +189,7 @@ targets:
     toplevel: top_cw312a35
     tools:
       vivado:
-        part: "xc7a35tcsg324-1"
+        part: "xc7a100tcsg324-1"
     parameters:
       - SRAMInitFile
       - PRIM_DEFAULT_IMPL=prim_pkg::ImplXilinx
@@ -293,8 +293,11 @@ targets:
           - '-LDFLAGS "-pthread -lutil -lelf"'
           - "-Wall"
           - "-Wwarn-IMPERFECTSCH"
+          - '-Wno-UNOPTFLAT'
           # RAM primitives wider than 64bit (required for ECC) fail to build in
           # Verilator without increasing the unroll count (see Verilator#1266)
           - "--unroll-count 72"
+          - '-LDFLAGS "-pthread -lutil -lelf -L/opt/homebrew/lib"'
+          - '-CFLAGS "-std=c++14 -Wall -DVM_TRACE_FMT_FST -DTOPLEVEL_NAME=top_verilator -I/opt/homebrew/include"'
     parameters:
       - PRIM_DEFAULT_IMPL=prim_pkg::ImplGeneric

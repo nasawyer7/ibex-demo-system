@@ -185,8 +185,9 @@ module ibex_id_stage #(
   output logic                      perf_jump_o,    // executing a jump instr
   output logic                      perf_branch_o,  // executing a branch instr
   output logic                      perf_tbranch_o, // executing a taken branch instr
+  output logic                      perf_exc_o,     // core is processing an exception
   output logic                      perf_dside_wait_o, // instruction in ID/EX is awaiting memory
-                                                        // access to finish before proceeding
+                                                         // access to finish before proceeding
   output logic                      perf_mul_wait_o,
   output logic                      perf_div_wait_o,
   output logic                      instr_id_done_o
@@ -634,7 +635,8 @@ module ibex_id_stage #(
 
     // Performance Counters
     .perf_jump_o   (perf_jump_o),
-    .perf_tbranch_o(perf_tbranch_o)
+    .perf_tbranch_o(perf_tbranch_o),
+    .perf_exc_o    (perf_exc_o)
   );
 
   assign multdiv_en_dec   = mult_en_dec | div_en_dec;

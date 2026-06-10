@@ -599,7 +599,6 @@ module ibex_controller #(
 
           perf_tbranch_o = branch_set_i;
           perf_jump_o    = jump_set_i;
-          perf_exc_o     = special_req & exc_req_d;
         end
 
         if (BranchPredictor) begin
@@ -733,6 +732,8 @@ module ibex_controller #(
         halt_if     = 1'b1;
         flush_id    = 1'b1;
         ctrl_fsm_ns = DECODE;
+
+        perf_exc_o  = exc_req_q | store_err_q | load_err_q;
 
         // As pc_mux and exc_pc_mux can take various values in this state they aren't set early
         // here.
